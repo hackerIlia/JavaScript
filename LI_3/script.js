@@ -15,6 +15,12 @@ const modalInfo = document.getElementById('info');
 
 form.style.display = 'none';
 
+/**
+ * Event listener for the table to handle row clicks and delete button clicks
+ * @event {Event} click - The click event on the table
+ * The listener checks if the clicked element is a button with the class 'deleteBtn' and if true deletes transaction with specified id.
+ * If the clicked element is a table row, it retrieves the transaction details and displays them in a modal.
+ */
 table.addEventListener('click', async function(event) {
     if(event.target.tagName === 'BUTTON' && event.target.classList.contains('deleteBtn')){
         let id = event.target.dataset.id;
@@ -49,7 +55,11 @@ table.addEventListener('click', async function(event) {
     }
 });
 
-
+/**
+ * Event listener for the form submission
+ * @event {Event} submit - The submit event on the form
+ * The listener prevents the default form submission, retrieves all transactions, creates a new transaction object, and adds it to the transactions.
+ */
 form.addEventListener('submit', async function(event) {
     event.preventDefault();
 
@@ -65,6 +75,11 @@ form.addEventListener('submit', async function(event) {
     await transaction.addTransaction();
 });
 
+/**
+ * Event listener for the add transaction button
+ * @event {Event} click - The click event on the add transaction button
+ * The listener displays the form and applies a blur effect to the main content.
+ */
 var addBtn = document.getElementById('addTransaction');
 addBtn.addEventListener('click', function() {
     if(!adding){
@@ -77,6 +92,12 @@ addBtn.addEventListener('click', function() {
     }
 });
 
+/**
+ * Event listener for the close modal button
+ * @event {Event} click - The click event on the close modal button
+ * The listener hides the form and removes the blur effect from the main content.
+ * It also resets the form and sets the adding variable to false.
+ */
 var closeModal = document.getElementById('closeModal');
 closeModal.addEventListener('click', function() {
     form.style.display = 'none';
@@ -90,7 +111,11 @@ closeModal.addEventListener('click', function() {
     adding = false;
 });
 
-
+/**
+ * Event listener for the close modal info button
+ * @event {Event} click - The click event on the close modal info button
+ * The listener hides the modal info and removes the blur effect from the main content.
+ */
 closeModalInfo.addEventListener('click', function() {
     modalInfo.style.display = 'none';
     main.style.filter  = 'none';
@@ -99,6 +124,11 @@ closeModalInfo.addEventListener('click', function() {
     addBtn.style.pointerEvents = 'auto';
 });
 
+/**
+ * Event listener for the amount input field
+ * @event {Event} input - The input event on the amount input field
+ * The listener checks if the input value is less than or equal to 0 and applies a red border if true, otherwise applies a green border.
+ */
 amountInput.addEventListener('input', function() {
     let value = amountInput.value;
     if(value <= 0){
@@ -109,6 +139,11 @@ amountInput.addEventListener('input', function() {
     }
 });
 
+/**
+ * Function for displaying transactions in the table
+ * It receives all transaction and creates a table row for each of them.
+ * Each row contains the transaction details and a delete button.
+ */
 async function displayTransactions() {
     const tableBody = document.getElementById('tableBody');
     tableBody.innerHTML = ""; // Clear existing rows
@@ -129,6 +164,10 @@ async function displayTransactions() {
         });
     }
 
+/**
+ * Function that fetches all transactions from the JSON file
+ * @returns {Promise<Transaction[]>} - A promise that resolves to an array of Transaction objects
+ */
 function getAllTransactions() {
     return fetch("transactions.json")
         .then(response => response.json())
@@ -142,6 +181,12 @@ function getAllTransactions() {
         .catch(error => console.error("Error fetching transactions: ", error));
 };
 
+/**
+ * Function for deleting a transaction by id
+ * @param {*} id  - id of the transaction to delete
+ * It sends a DELETE request to the server with the id of the transaction to delete.
+ * After the transaction is deleted, it calculates the total amount of all transactions.
+ */
 async function deleteTransaction(id) {
     try {
         const response = await fetch("http://localhost:3000/delete-transaction", {
@@ -159,6 +204,11 @@ async function deleteTransaction(id) {
     }
 }
 
+/**
+ * Function for calculating the total amount of all transactions
+ * It fetches all transactions and sums their amounts.
+ * It updates the total amount displayed on the page.
+ */
 async function calculateTotal() {
     let sum = 0;
     let transactions = await getAllTransactions();
@@ -180,6 +230,11 @@ class Transaction {
     }
 
     
+    /**
+     * Function for adding a transaction to the JSON file
+     * It sends a POST request to the server with the transaction data.
+     * After the transaction is added, it calculates the total amount of all transactions.
+     */
     async addTransaction(){
         try {
             const response = await fetch("http://localhost:3000/add-transaction", {
