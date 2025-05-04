@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal finance accounting</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="info">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="header-h2">Transaction info</h2>
+            </div>
+            <div class="modal-body">
+                <table id="infoTable">
+                    <tr>
+                        <td><span id="infoId">Id: </span></td>
+                        <td><span id="data-id"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span id="infoDate">Date and time: </span></td>
+                        <td><span id="data-date"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span id="infoCategory">Category: </span></td>
+                        <td><span id="data-category"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span id="infoDescription">Description: </span></td>
+                        <td><span id="data-description"></span></td>
+                    </tr>
+                    <tr>
+                        <td><span id="infoAmount">Amount: </span></td>
+                        <td><span id="data-amount"></span></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button id="closeModalInfo" class="close">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <form id="transactionForm">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="header-h2">Add new transaction</h2>
+            </div>
+            <div class="modal-body">
+                <input type="number" id="amount" placeholder="Amount" required>
+                <select id="category" required>
+                    <option value="" disabled selected>Select category</option>
+                    <option value="supermarket">Supermarket</option>
+                    <option value="clothes">Clothes</option>
+                    <option value="transport">Transport</option>
+                    <option value="gadgets">Gadgets</option>
+                    <option value="entertainment">Entertainment</option>
+                    <option value="health">Health</option>
+                    <option value="education">Education</option>
+                    <option value="other">Other</option>
+                </select>
+                <textarea id="description" placeholder="Description" cols="30" rows="3" required></textarea>
+            </div>
+            <div class="modal-footer">
+                <button id="saveTransaction" type="submit">Save</button>
+                <button id="closeModal" class="close">Close</button>
+            </div>
+        </div>
+    </form>
+
+
+    <div id="main">
+        <table id="data">
+            <thead>
+                <tr>
+                    <th style="width: 10%;">Id</th>
+                    <th style="width: 25%;">Date and time</th>
+                    <th style="width: 20%;">Category</th>
+                    <th style="width: 20%;">Description</th>
+                    <th style="width: 10%;">Amount</th>
+                    <th style="width: 15%;">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+
+            </tbody>
+        </table>
+        
+        <span id="totalLabel">Total amount: <span id="total"></span></span>
+
+        <button id="addTransaction">Add transaction</button>
+    </div>
+
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>

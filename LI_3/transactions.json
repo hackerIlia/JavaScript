@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "date": "04.05.2025, 12:36:02",
+    "amount": "12",
+    "category": "gadgets",
+    "description": "2312"
+  },
+  {
+    "id": 4,
+    "date": "04.05.2025, 13:02:49",
+    "amount": "18",
+    "category": "gadgets",
+    "description": "iphone"
+  }
+]
